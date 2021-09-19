@@ -5,11 +5,17 @@ let ready = false;
 let imagesLoaded = 0;
 let totalImages = 0;
 let photosArray = [];
+let initialLoad = true;
 
 // Unsplash API
-const imageCount = 10;
+const imageCountInitial = 5;
+const imageCountIncreased = 30;
+let imageCount = imageCountInitial;
 const apiKey = 'nUopIOU5y1XC3CFG6788fjohXeMbDIeme5i0KDTbJvQ';
-const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${imageCount}`;
+let apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${imageCount}`;
+
+
+
 
 // Check if all images were loaded
 function imageLoaded() {
@@ -18,7 +24,6 @@ function imageLoaded() {
         ready = true;
         loader.hidden = true;
     }
-
 }
 
 // Hepler Function to Set Attributes on DOM elements
@@ -76,3 +81,11 @@ window.addEventListener('scroll', () => {
 
 // On Load
 getPhotos();
+
+// Increase number of image that will be loaded after first loading
+if (initialLoad) {
+    console.log('Initial load')
+    initialLoad = false;
+    imageCount = imageCountIncreased;
+    apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${imageCount}`;
+}
